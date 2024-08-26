@@ -3,7 +3,6 @@ package com.mertyigit0.kekodproject1mertyigit
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.google.android.material.switchmaterial.SwitchMaterial
 import com.mertyigit0.kekodproject1mertyigit.databinding.FragmentSwitchScreenBinding
 
 class SwitchScreenFragment : Fragment(R.layout.fragment_switch_screen) {
@@ -23,27 +22,38 @@ class SwitchScreenFragment : Fragment(R.layout.fragment_switch_screen) {
         val switchRespect = binding.switchRespect
         val switchOptimism = binding.switchOptimism
 
-        // Diğer Switch'lerin durumunu kontrol et
+        // Function to update switch states
         fun updateSwitches() {
             if (switchEgo.isChecked) {
+                // Disable other switches if Ego is checked
+                switchGiving.isChecked = false
+                switchHappiness.isChecked = false
+                switchKindness.isChecked = false
+                switchRespect.isChecked = false
+                switchOptimism.isChecked = false
+
+                // Update Bottom Navigation with Ego
                 updateBottomNavigation(R.id.switch_ego)
-            } else if (switchGiving.isChecked) {
-                updateBottomNavigation(R.id.switch_giving)
-            } else if (switchHappiness.isChecked) {
-                updateBottomNavigation(R.id.switch_happiness)
-            } else if (switchKindness.isChecked) {
-                updateBottomNavigation(R.id.switch_kindness)
-            } else if (switchRespect.isChecked) {
-                updateBottomNavigation(R.id.switch_respect)
-            } else if (switchOptimism.isChecked) {
-                updateBottomNavigation(R.id.switch_optimism)
             }
+
+            // Check if any other switch is on
+            if (switchGiving.isChecked || switchHappiness.isChecked || switchKindness.isChecked || switchRespect.isChecked || switchOptimism.isChecked) {
+                // If any other switch is on, turn off Ego
+                switchEgo.isChecked = false
+            }
+
+            // Update Bottom Navigation based on the other switches
+            if (switchGiving.isChecked) updateBottomNavigation(R.id.switch_giving)
+            if (switchHappiness.isChecked) updateBottomNavigation(R.id.switch_happiness)
+            if (switchKindness.isChecked) updateBottomNavigation(R.id.switch_kindness)
+            if (switchRespect.isChecked) updateBottomNavigation(R.id.switch_respect)
+            if (switchOptimism.isChecked) updateBottomNavigation(R.id.switch_optimism)
         }
 
-        // Switch'lerin durumunu başlat
+        // Initialize the switch states
         updateSwitches()
 
-        // Switch'lerin değişimini dinle
+        // Listen for changes in switch states
         switchEgo.setOnCheckedChangeListener { _, _ -> updateSwitches() }
         switchGiving.setOnCheckedChangeListener { _, _ -> updateSwitches() }
         switchHappiness.setOnCheckedChangeListener { _, _ -> updateSwitches() }
@@ -61,4 +71,3 @@ class SwitchScreenFragment : Fragment(R.layout.fragment_switch_screen) {
         _binding = null
     }
 }
-

@@ -9,4 +9,7 @@
     <string name="optimism">Optimism</string>
     <string name="ego">Ego</string>
     <string name="switches">Switches</string>
+    <string name="menu_limit_reached">You have reached the maximum number of menu items.</string>
+    <string name="menu_item_already_exists">Menu item already exist.</string>
+
 </resources>

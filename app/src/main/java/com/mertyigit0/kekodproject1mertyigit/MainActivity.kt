@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.snackbar.Snackbar
 import com.mertyigit0.kekodproject1mertyigit.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +38,31 @@ class MainActivity : AppCompatActivity() {
 
     fun updateBottomNavigation(selectedItemId: Int) {
         val menu = binding.bottomNavigationView.menu
-        menu.clear()
+
+        // Menüde aynı isim ve ikonla bir öğe olup olmadığını kontrol et
+        val itemIdToCheck = when (selectedItemId) {
+            R.id.switch_ego -> R.id.egoFragment
+            R.id.switch_giving -> R.id.givingFragment
+            R.id.switch_happiness -> R.id.happinessFragment
+            R.id.switch_kindness -> R.id.kindnessFragment
+            R.id.switch_respect -> R.id.respectFragment
+            R.id.switch_optimism -> R.id.optimismFragment
+            else -> return
+        }
+
+        if (menu.findItem(itemIdToCheck) != null) {
+            // Aynı isim ve ikonla bir menü öğesi zaten var, uyarı göster
+            Snackbar.make(binding.root, R.string.menu_item_already_exists, Snackbar.LENGTH_SHORT).show()
+            return
+        }
+
+        if (menu.size() >= 5) {
+            // Menüde 5'ten fazla öğe varsa, uyarı göster
+            Snackbar.make(binding.root, R.string.menu_limit_reached, Snackbar.LENGTH_SHORT).show()
+            return
+        }
+
+        // Yeni menü öğesi ekle
         when (selectedItemId) {
             R.id.switch_ego -> menu.add(0, R.id.egoFragment, 0, R.string.ego).setIcon(R.drawable.ic_ego)
             R.id.switch_giving -> menu.add(0, R.id.givingFragment, 0, R.string.giving).setIcon(R.drawable.ic_giving)
@@ -47,4 +72,6 @@ class MainActivity : AppCompatActivity() {
             R.id.switch_optimism -> menu.add(0, R.id.optimismFragment, 0, R.string.optimism).setIcon(R.drawable.ic_optimism)
         }
     }
+
+
 }
