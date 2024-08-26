@@ -34,12 +34,12 @@ class SwitchScreenFragment : Fragment(R.layout.fragment_switch_screen) {
 
                 // Update Bottom Navigation with Ego
                 updateBottomNavigation(R.id.switch_ego)
-            }
-
-            // Check if any other switch is on
-            if (switchGiving.isChecked || switchHappiness.isChecked || switchKindness.isChecked || switchRespect.isChecked || switchOptimism.isChecked) {
-                // If any other switch is on, turn off Ego
-                switchEgo.isChecked = false
+            } else {
+                // Check if any other switch is on
+                if (switchGiving.isChecked || switchHappiness.isChecked || switchKindness.isChecked || switchRespect.isChecked || switchOptimism.isChecked) {
+                    // If any other switch is on, turn off Ego
+                    switchEgo.isChecked = false
+                }
             }
 
             // Update Bottom Navigation based on the other switches
@@ -48,6 +48,14 @@ class SwitchScreenFragment : Fragment(R.layout.fragment_switch_screen) {
             if (switchKindness.isChecked) updateBottomNavigation(R.id.switch_kindness)
             if (switchRespect.isChecked) updateBottomNavigation(R.id.switch_respect)
             if (switchOptimism.isChecked) updateBottomNavigation(R.id.switch_optimism)
+
+            // Remove menu items for unchecked switches
+            if (!switchEgo.isChecked) removeMenuItemForSwitch(R.id.switch_ego)
+            if (!switchGiving.isChecked) removeMenuItemForSwitch(R.id.switch_giving)
+            if (!switchHappiness.isChecked) removeMenuItemForSwitch(R.id.switch_happiness)
+            if (!switchKindness.isChecked) removeMenuItemForSwitch(R.id.switch_kindness)
+            if (!switchRespect.isChecked) removeMenuItemForSwitch(R.id.switch_respect)
+            if (!switchOptimism.isChecked) removeMenuItemForSwitch(R.id.switch_optimism)
         }
 
         // Initialize the switch states
@@ -64,6 +72,10 @@ class SwitchScreenFragment : Fragment(R.layout.fragment_switch_screen) {
 
     private fun updateBottomNavigation(selectedItemId: Int) {
         (activity as? MainActivity)?.updateBottomNavigation(selectedItemId)
+    }
+
+    private fun removeMenuItemForSwitch(switchId: Int) {
+        (activity as? MainActivity)?.removeMenuItemForSwitch(switchId)
     }
 
     override fun onDestroyView() {

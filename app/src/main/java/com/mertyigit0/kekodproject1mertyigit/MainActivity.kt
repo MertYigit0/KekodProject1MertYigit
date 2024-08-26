@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         if (menu.findItem(itemIdToCheck) != null) {
             // Aynı isim ve ikonla bir menü öğesi zaten var, uyarı göster
-            Snackbar.make(binding.root, R.string.menu_item_already_exists, Snackbar.LENGTH_SHORT).show()
+            // Snackbar.make(binding.root, R.string.menu_item_already_exists, Snackbar.LENGTH_SHORT).show()
             return
         }
 
@@ -73,5 +73,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun removeMenuItemForSwitch(switchId: Int) {
+        val menu = binding.bottomNavigationView.menu
+        val itemIdToRemove = when (switchId) {
+            R.id.switch_ego -> R.id.egoFragment
+            R.id.switch_giving -> R.id.givingFragment
+            R.id.switch_happiness -> R.id.happinessFragment
+            R.id.switch_kindness -> R.id.kindnessFragment
+            R.id.switch_respect -> R.id.respectFragment
+            R.id.switch_optimism -> R.id.optimismFragment
+            else -> return
+        }
 
+        // Menüdeki öğeyi bul ve kaldır
+        val menuItem = menu.findItem(itemIdToRemove)
+        if (menuItem != null) {
+            menu.removeItem(itemIdToRemove)
+        }
+    }
 }
