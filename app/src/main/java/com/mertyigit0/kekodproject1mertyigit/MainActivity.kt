@@ -1,6 +1,7 @@
 package com.mertyigit0.kekodproject1mertyigit
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -41,7 +42,6 @@ class MainActivity : AppCompatActivity() {
 
         // Menüde aynı isim ve ikonla bir öğe olup olmadığını kontrol et
         val itemIdToCheck = when (selectedItemId) {
-            R.id.switch_ego -> R.id.egoFragment
             R.id.switch_giving -> R.id.givingFragment
             R.id.switch_happiness -> R.id.happinessFragment
             R.id.switch_kindness -> R.id.kindnessFragment
@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
 
         // Yeni menü öğesi ekle
         when (selectedItemId) {
-            R.id.switch_ego -> menu.add(0, R.id.egoFragment, 0, R.string.ego).setIcon(R.drawable.ic_ego)
             R.id.switch_giving -> menu.add(0, R.id.givingFragment, 0, R.string.giving).setIcon(R.drawable.ic_giving)
             R.id.switch_happiness -> menu.add(0, R.id.happinessFragment, 0, R.string.happiness).setIcon(R.drawable.ic_happiness)
             R.id.switch_kindness -> menu.add(0, R.id.kindnessFragment, 0, R.string.kindness).setIcon(R.drawable.ic_kindness)
@@ -76,7 +75,6 @@ class MainActivity : AppCompatActivity() {
     fun removeMenuItemForSwitch(switchId: Int) {
         val menu = binding.bottomNavigationView.menu
         val itemIdToRemove = when (switchId) {
-            R.id.switch_ego -> R.id.egoFragment
             R.id.switch_giving -> R.id.givingFragment
             R.id.switch_happiness -> R.id.happinessFragment
             R.id.switch_kindness -> R.id.kindnessFragment
@@ -90,5 +88,9 @@ class MainActivity : AppCompatActivity() {
         if (menuItem != null) {
             menu.removeItem(itemIdToRemove)
         }
+    }
+
+    fun setBottomNavigationVisibility(visible: Boolean) {
+        binding.bottomNavigationView.visibility = if (visible) View.VISIBLE else View.GONE
     }
 }

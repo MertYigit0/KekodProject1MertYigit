@@ -11,5 +11,10 @@
     <string name="switches">Switches</string>
     <string name="menu_limit_reached">You have reached the maximum number of menu items.</string>
     <string name="menu_item_already_exists">Menu item already exist.</string>
+    <string name="welcome_to_giving_fragment">Welcome to Giving Fragment</string>
+    <string name="welcome_to_happiness_fragment">Welcome to Happiness Fragment</string>
+    <string name="welcome_to_kindness_fragment">Welcome to Kindness Fragment</string>
+    <string name="welcome_to_optimism_fragment">Welcome to Optimism Fragment</string>
+    <string name="welcome_to_respect_fragment">Welcome to Respect Fragment</string>
 
 </resources>

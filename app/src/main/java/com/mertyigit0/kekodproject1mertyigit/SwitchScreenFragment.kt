@@ -34,7 +34,12 @@ class SwitchScreenFragment : Fragment(R.layout.fragment_switch_screen) {
 
                 // Update Bottom Navigation with Ego
                 updateBottomNavigation(R.id.switch_ego)
+                // Hide Bottom Navigation Bar when Ego is checked
+                (activity as? MainActivity)?.setBottomNavigationVisibility(false)
             } else {
+                // Show Bottom Navigation Bar if Ego is not checked
+                (activity as? MainActivity)?.setBottomNavigationVisibility(true)
+
                 // Check if any other switch is on
                 if (switchGiving.isChecked || switchHappiness.isChecked || switchKindness.isChecked || switchRespect.isChecked || switchOptimism.isChecked) {
                     // If any other switch is on, turn off Ego
@@ -50,7 +55,6 @@ class SwitchScreenFragment : Fragment(R.layout.fragment_switch_screen) {
             if (switchOptimism.isChecked) updateBottomNavigation(R.id.switch_optimism)
 
             // Remove menu items for unchecked switches
-            if (!switchEgo.isChecked) removeMenuItemForSwitch(R.id.switch_ego)
             if (!switchGiving.isChecked) removeMenuItemForSwitch(R.id.switch_giving)
             if (!switchHappiness.isChecked) removeMenuItemForSwitch(R.id.switch_happiness)
             if (!switchKindness.isChecked) removeMenuItemForSwitch(R.id.switch_kindness)
