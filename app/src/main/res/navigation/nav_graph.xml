@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/egoFragment">
+    app:startDestination="@id/switchScreenFragment">
 
     <fragment
         android:id="@+id/egoFragment"
@@ -35,4 +35,9 @@
         android:name="com.mertyigit0.kekodproject1mertyigit.OptimismFragment"
         android:label="fragment_optimism"
         tools:layout="@layout/fragment_optimism" />
+    <fragment
+        android:id="@+id/switchScreenFragment"
+        android:name="com.mertyigit0.kekodproject1mertyigit.SwitchScreenFragment"
+        android:label="fragment_switch_screen"
+        tools:layout="@layout/fragment_switch_screen" />
 </navigation>
