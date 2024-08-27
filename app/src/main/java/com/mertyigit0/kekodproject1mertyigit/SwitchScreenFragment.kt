@@ -1,8 +1,8 @@
-package com.mertyigit0.kekodproject1mertyigit
-
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.mertyigit0.kekodproject1mertyigit.MainActivity
+import com.mertyigit0.kekodproject1mertyigit.R
 import com.mertyigit0.kekodproject1mertyigit.databinding.FragmentSwitchScreenBinding
 
 class SwitchScreenFragment : Fragment(R.layout.fragment_switch_screen) {
@@ -14,64 +14,47 @@ class SwitchScreenFragment : Fragment(R.layout.fragment_switch_screen) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSwitchScreenBinding.bind(view)
 
-        // Switch'ler
-        val switchEgo = binding.switchEgo
-        val switchGiving = binding.switchGiving
-        val switchHappiness = binding.switchHappiness
-        val switchKindness = binding.switchKindness
-        val switchRespect = binding.switchRespect
-        val switchOptimism = binding.switchOptimism
+        // Tüm switch'leri bir liste içinde toplama
+        val switches = listOf(
+            binding.switchEgo to R.id.switch_ego,
+            binding.switchGiving to R.id.switch_giving,
+            binding.switchHappiness to R.id.switch_happiness,
+            binding.switchKindness to R.id.switch_kindness,
+            binding.switchRespect to R.id.switch_respect,
+            binding.switchOptimism to R.id.switch_optimism
+        )
 
-        // Function to update switch states
+        // Switch durumlarını güncelleyen fonksiyon
         fun updateSwitches() {
-            if (switchEgo.isChecked) {
-                // Disable other switches if Ego is checked
-                switchGiving.isChecked = false
-                switchHappiness.isChecked = false
-                switchKindness.isChecked = false
-                switchRespect.isChecked = false
-                switchOptimism.isChecked = false
+            val isEgoChecked = binding.switchEgo.isChecked
 
-                // Update Bottom Navigation with Ego
+            // Eğer Ego açık ise diğerlerini kapat
+            if (isEgoChecked) {
+                switches.filter { it.first != binding.switchEgo }
+                    .forEach { it.first.isChecked = false }
                 updateBottomNavigation(R.id.switch_ego)
-                // Hide Bottom Navigation Bar when Ego is checked
                 (activity as? MainActivity)?.setBottomNavigationVisibility(false)
             } else {
-                // Show Bottom Navigation Bar if Ego is not checked
                 (activity as? MainActivity)?.setBottomNavigationVisibility(true)
-
-                // Check if any other switch is on
-                if (switchGiving.isChecked || switchHappiness.isChecked || switchKindness.isChecked || switchRespect.isChecked || switchOptimism.isChecked) {
-                    // If any other switch is on, turn off Ego
-                    switchEgo.isChecked = false
-                }
             }
 
-            // Update Bottom Navigation based on the other switches
-            if (switchGiving.isChecked) updateBottomNavigation(R.id.switch_giving)
-            if (switchHappiness.isChecked) updateBottomNavigation(R.id.switch_happiness)
-            if (switchKindness.isChecked) updateBottomNavigation(R.id.switch_kindness)
-            if (switchRespect.isChecked) updateBottomNavigation(R.id.switch_respect)
-            if (switchOptimism.isChecked) updateBottomNavigation(R.id.switch_optimism)
-
-            // Remove menu items for unchecked switches
-            if (!switchGiving.isChecked) removeMenuItemForSwitch(R.id.switch_giving)
-            if (!switchHappiness.isChecked) removeMenuItemForSwitch(R.id.switch_happiness)
-            if (!switchKindness.isChecked) removeMenuItemForSwitch(R.id.switch_kindness)
-            if (!switchRespect.isChecked) removeMenuItemForSwitch(R.id.switch_respect)
-            if (!switchOptimism.isChecked) removeMenuItemForSwitch(R.id.switch_optimism)
+            // Diğer switch'lerin durumlarını ve alt gezinmeyi güncelleme
+            switches.filter { it.first != binding.switchEgo }.forEach { (switch, id) ->
+                if (switch.isChecked) {
+                    updateBottomNavigation(id)
+                } else {
+                    removeMenuItemForSwitch(id)
+                }
+            }
         }
 
-        // Initialize the switch states
-        updateSwitches()
+        // Tüm switch'lere tek bir dinleyici ekleme
+        switches.forEach { (switch, _) ->
+            switch.setOnCheckedChangeListener { _, _ -> updateSwitches() }
+        }
 
-        // Listen for changes in switch states
-        switchEgo.setOnCheckedChangeListener { _, _ -> updateSwitches() }
-        switchGiving.setOnCheckedChangeListener { _, _ -> updateSwitches() }
-        switchHappiness.setOnCheckedChangeListener { _, _ -> updateSwitches() }
-        switchKindness.setOnCheckedChangeListener { _, _ -> updateSwitches() }
-        switchRespect.setOnCheckedChangeListener { _, _ -> updateSwitches() }
-        switchOptimism.setOnCheckedChangeListener { _, _ -> updateSwitches() }
+        // Switch durumlarını başlatma
+        updateSwitches()
     }
 
     private fun updateBottomNavigation(selectedItemId: Int) {
