@@ -1,8 +1,8 @@
+package com.mertyigit0.kekodproject1mertyigit
+
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.mertyigit0.kekodproject1mertyigit.MainActivity
-import com.mertyigit0.kekodproject1mertyigit.R
 import com.mertyigit0.kekodproject1mertyigit.databinding.FragmentSwitchScreenBinding
 
 class SwitchScreenFragment : Fragment(R.layout.fragment_switch_screen) {
