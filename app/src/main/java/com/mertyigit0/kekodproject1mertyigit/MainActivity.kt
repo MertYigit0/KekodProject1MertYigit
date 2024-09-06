@@ -47,10 +47,12 @@ class MainActivity : AppCompatActivity() {
         val menu = binding.bottomNavigationView.menu
         if (menu.findItem(menuItemId) == null && menu.size() < 5) {
             menu.add(0, menuItemId, 0, titleResId).setIcon(iconResId)
-        } else if (menu.size() > 5) {
+        } else if (menu.size() == 5) {
+            // Eğer menüde 5 item varsa, Snackbar göster
             Snackbar.make(binding.root, R.string.menu_limit_reached, Snackbar.LENGTH_SHORT).show()
         }
     }
+
 
     fun updateBottomNavigation(selectedItemId: Int) {
         val menuItemId = getMenuItemIdForSwitch(selectedItemId) ?: return
