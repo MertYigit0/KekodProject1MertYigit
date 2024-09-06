@@ -22,6 +22,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
+
         val navHostFragment = binding.fragmentContainerView.getFragment<NavHostFragment>()
         val navController = navHostFragment?.findNavController()
         if (navController != null) {
@@ -69,7 +72,8 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.menu.removeItem(menuItemId)
     }
 
-    fun setBottomNavigationVisibility(visible: Boolean) {
-        binding.bottomNavigationView.visibility = if (visible) View.VISIBLE else View.GONE
+    fun setBottomNavigationVisibility(isVisible: Boolean) {
+        // Bottom Navigation visibility ayarlama işlemi
+        binding.bottomNavigationView.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 }
